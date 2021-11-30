@@ -138,7 +138,24 @@ $(".card .list-group").sortable({
     console.log("out", event.target);
   },
   update: function(event) {
-    console.log("update", this);
+    var tempArr = [];
+
+    // loop over current set of children in sortable list
+    $(this).children().each(function() {
+      var text = $(this).find("p").text().trim();
+      var date = $(this).find("span").text().trim();
+
+      var arrName = $(this).attr("id").replace("list-", "");
+      tasks[arrName] = tempArr;
+      saveTasks();
+
+      tempArr.push({
+        text: text,
+        date: date
+      });
+    });
+
+    console.log(tempArr)
   }
 });
 
