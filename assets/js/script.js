@@ -92,7 +92,6 @@ $(".list-group").on("change", "input[type='text']", function () {
   var date = $(this).val().trim();
 
   var status = $(this).closest(".list-group").attr("id").replace("list-", "");
-
   var index = $(this).closest(".list-group-item").index();
 
   tasks[status][index].date = date;
@@ -101,8 +100,10 @@ $(".list-group").on("change", "input[type='text']", function () {
   var taskSpan = $("<span>")
     .addClass("badge badge-primary badge-pill")
     .text(date);
-
   $(this).replaceWith(taskSpan);
+
+  // Pass tasks's <li> element into auditTask() to check new due date
+  auditTask($(taskSpan).closest(".list-group-item"));
 });
 
 $(".card .list-group").sortable({
@@ -154,6 +155,9 @@ var auditTask = function(taskEl) {
   $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
   if (moment().isAfter(time)) {
     $(taskEl).addClass("list-group-item-danger");
+  }
+  else if (Math.abs(moment().diff(time, "days")) <= 2) {
+    $(taskEl).addClass("list-group-item-warning");
   }
 }
 
