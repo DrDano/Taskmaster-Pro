@@ -140,7 +140,7 @@ $("#trash").droppable({
   accept: ".card .list-group-item",
   tolerance: "touch",
   drop: function(event, ui) {
-    console.log("dropped")
+    console.log("dropped");
   },
   over: function(event, ui) {
     console.log("over");
