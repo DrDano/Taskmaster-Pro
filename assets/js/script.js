@@ -76,7 +76,10 @@ $(".list-group").on("click", "span", function () {
   $(this).replaceWith(dateInput);
 
   dateInput.datepicker({
-    minDate: 1
+    minDate: 1,
+    onClose: function() {
+      $(this).trigger("change");
+    }
   })
 
   dateInput.trigger("focus");
